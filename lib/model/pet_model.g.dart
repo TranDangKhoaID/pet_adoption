@@ -17,11 +17,13 @@ PetModel _$PetModelFromJson(Map<String, dynamic> json) => PetModel(
       price: json['price'] as int?,
       album:
           (json['album'] as List<dynamic>?)?.map((e) => e as String).toList(),
+      category_id: json['category_id'] as String?,
     );
 
 Map<String, dynamic> _$PetModelToJson(PetModel instance) => <String, dynamic>{
       'id': instance.id,
       'owner_id': instance.owner_id,
+      'category_id': instance.category_id,
       'name': instance.name,
       'image': instance.image,
       'sex': instance.sex,

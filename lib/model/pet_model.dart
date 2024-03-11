@@ -6,6 +6,7 @@ part 'pet_model.g.dart';
 class PetModel {
   final String? id;
   final String? owner_id;
+  final String? category_id;
   final String? name;
   final String? image;
   final String? sex;
@@ -24,6 +25,7 @@ class PetModel {
     this.color,
     this.price,
     this.album,
+    this.category_id,
   });
 
   factory PetModel.fromJson(Map<String, dynamic> json) =>

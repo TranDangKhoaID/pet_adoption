@@ -1,6 +1,10 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:pet_adoption/model/category_model.dart';
 import 'package:pet_adoption/theme/color.dart';
 import 'package:pet_adoption/utils/data.dart';
 import 'package:pet_adoption/widgets/category_item.dart';
@@ -37,6 +41,11 @@ class _HomePageState extends State<HomePage> {
           )
         ],
       ),
+      // body: Column(
+      //   children: [
+      //     _buildCategories(),
+      //   ],
+      // ),
     );
   }
 
@@ -64,13 +73,9 @@ class _HomePageState extends State<HomePage> {
       child: Padding(
         padding: const EdgeInsets.only(top: 0, bottom: 10),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          const SizedBox(
-            height: 25,
-          ),
+          Gap(20),
           _buildCategories(),
-          const SizedBox(
-            height: 25,
-          ),
+          Gap(25),
           Padding(
             padding: const EdgeInsets.fromLTRB(15, 0, 15, 25),
             child: Text(
@@ -89,23 +94,54 @@ class _HomePageState extends State<HomePage> {
   }
 
   int _selectedCategory = 0;
-  _buildCategories() {
-    List<Widget> lists = List.generate(
-      categories.length,
-      (index) => CategoryItem(
-        data: categories[index],
-        selected: index == _selectedCategory,
-        onTap: () {
-          setState(() {
-            _selectedCategory = index;
-          });
+  Widget _buildCategories() {
+    return SizedBox(
+      height: 90,
+      child: StreamBuilder(
+        stream: FirebaseFirestore.instance.collection('categories').snapshots(),
+        builder: (context, snapshot) {
+          // if (snapshot.connectionState == ConnectionState.waiting) {
+          //   return const Center(
+          //     child: CircularProgressIndicator(),
+          //   );
+          // }
+          if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          }
+          if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
+            List<DocumentSnapshot> documents = snapshot.data!.docs;
+            return ListView.builder(
+              padding: EdgeInsets.only(bottom: 5, left: 15),
+              scrollDirection: Axis.horizontal,
+              itemCount: documents.length,
+              itemBuilder: (context, index) {
+                var document = documents[index];
+                final category = CategoryModel(
+                  id: document['id'],
+                  name: document['name'],
+                  icon: document['icon'],
+                );
+                return CategoryItem(
+                  data: category,
+                  selected: index == _selectedCategory,
+                  onTap: () {
+                    setState(() {
+                      _selectedCategory = index;
+                    });
+                  },
+                );
+              },
+            );
+          } else {
+            // Trường hợp không có dữ liệu
+            return const Center(
+                child: Text(
+              'No data available',
+              semanticsLabel: 'No data available',
+            ));
+          }
         },
       ),
-    );
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      padding: EdgeInsets.only(bottom: 5, left: 15),
-      child: Row(children: lists),
     );
   }
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:glassmorphism_ui/glassmorphism_ui.dart';
+import 'package:pet_adoption/model/pet_model.dart';
 import 'package:pet_adoption/theme/color.dart';
 import 'package:pet_adoption/widgets/favorite_box.dart';
 
@@ -15,7 +16,7 @@ class PetItem extends StatelessWidget {
       this.onTap,
       this.onFavoriteTap})
       : super(key: key);
-  final data;
+  final PetModel data;
   final double width;
   final double height;
   final double radius;
@@ -87,7 +88,7 @@ class PetItem extends StatelessWidget {
 
   Widget _buildLocation() {
     return Text(
-      data["location"],
+      data.location ?? "",
       maxLines: 1,
       overflow: TextOverflow.ellipsis,
       style: TextStyle(
@@ -102,7 +103,7 @@ class PetItem extends StatelessWidget {
       children: [
         Expanded(
           child: Text(
-            data["name"],
+            data.name ?? "",
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
@@ -113,7 +114,7 @@ class PetItem extends StatelessWidget {
           ),
         ),
         FavoriteBox(
-          isFavorited: data["is_favorited"],
+          isFavorited: false,
           onTap: onFavoriteTap,
         )
       ],
@@ -122,7 +123,7 @@ class PetItem extends StatelessWidget {
 
   Widget _buildImage() {
     return CustomImage(
-      data["image"],
+      data.image ?? "",
       borderRadius: BorderRadius.vertical(
         top: Radius.circular(radius),
         bottom: Radius.zero,
@@ -139,15 +140,15 @@ class PetItem extends StatelessWidget {
       children: [
         _getAttribute(
           Icons.transgender,
-          data["sex"],
+          data.sex ?? "",
         ),
         _getAttribute(
           Icons.color_lens_outlined,
-          data["color"],
+          data.color ?? "",
         ),
         _getAttribute(
           Icons.query_builder,
-          data["age"],
+          data.age ?? "",
         ),
       ],
     );

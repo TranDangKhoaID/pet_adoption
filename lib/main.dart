@@ -1,5 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:pet_adoption/controllers/pet_controller.dart';
 import 'package:pet_adoption/firebase_options.dart';
 import 'package:pet_adoption/screens/root_app.dart';
 import 'package:pet_adoption/theme/color.dart';
@@ -9,6 +11,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  Get.put(PetController());
   runApp(MyApp());
 }
 

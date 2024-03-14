@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pet_adoption/screens/chat.dart';
 import 'package:pet_adoption/screens/home.dart';
+import 'package:pet_adoption/screens/pet_page.dart';
+import 'package:pet_adoption/screens/setting/setting_page.dart';
 import 'package:pet_adoption/theme/color.dart';
 import 'package:pet_adoption/utils/constant.dart';
 import 'package:pet_adoption/widgets/bottombar_item.dart';
@@ -23,11 +25,7 @@ class _RootAppState extends State<RootApp> with TickerProviderStateMixin {
     {
       "icon": "assets/icons/pet-border.svg",
       "active_icon": "assets/icons/pet.svg",
-      "page": Container(
-        child: Center(
-          child: Text("Pet Page"),
-        ),
-      ),
+      "page": PetPage(),
     },
     {
       "icon": "assets/icons/chat-border.svg",
@@ -37,11 +35,7 @@ class _RootAppState extends State<RootApp> with TickerProviderStateMixin {
     {
       "icon": "assets/icons/setting-border.svg",
       "active_icon": "assets/icons/setting.svg",
-      "page": Container(
-        child: Center(
-          child: Text("Setting Page"),
-        ),
-      ),
+      "page": SettingPage(),
     },
   ];
 

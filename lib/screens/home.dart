@@ -1,23 +1,18 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_database/firebase_database.dart';
-import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-
 import 'package:pet_adoption/controllers/pet_controller.dart';
 import 'package:pet_adoption/model/category_model.dart';
 import 'package:pet_adoption/model/pet_model.dart';
 import 'package:pet_adoption/theme/color.dart';
-
 import 'package:pet_adoption/widgets/category_item.dart';
-import 'package:pet_adoption/widgets/custom_textbox.dart';
 import 'package:pet_adoption/widgets/notification_box.dart';
 import 'package:pet_adoption/widgets/pet_item.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
   _HomePageState createState() => _HomePageState();

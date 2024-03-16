@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:glassmorphism_ui/glassmorphism_ui.dart';
+import 'package:pet_adoption/constants/constants.dart';
 import 'package:pet_adoption/model/pet_model.dart';
 import 'package:pet_adoption/theme/color.dart';
 import 'package:pet_adoption/widgets/favorite_box.dart';
@@ -123,7 +124,7 @@ class PetItem extends StatelessWidget {
 
   Widget _buildImage() {
     return CustomImage(
-      data.image ?? "",
+      data.image!.isNotEmpty ? data.image.toString() : urlPetDefault,
       borderRadius: BorderRadius.vertical(
         top: Radius.circular(radius),
         bottom: Radius.zero,
@@ -131,6 +132,7 @@ class PetItem extends StatelessWidget {
       isShadow: false,
       width: width,
       height: 350,
+      fit: BoxFit.cover,
     );
   }
 

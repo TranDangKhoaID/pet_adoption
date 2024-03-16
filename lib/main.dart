@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pet_adoption/controllers/pet_controller.dart';
 import 'package:pet_adoption/firebase_options.dart';
+import 'package:pet_adoption/screens/login/auth_page.dart';
+import 'package:pet_adoption/screens/login/login.dart';
 import 'package:pet_adoption/screens/root_app.dart';
+import 'package:pet_adoption/storage/app_shared.dart';
 import 'package:pet_adoption/theme/color.dart';
 
 void main() async {
@@ -11,6 +14,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  AppShared.init();
   Get.put(PetController());
   runApp(MyApp());
 }
@@ -20,13 +24,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Pet App',
       theme: ThemeData(
         primaryColor: AppColor.primary,
       ),
-      home: const RootApp(),
+      home: AuthPage(),
     );
   }
 }

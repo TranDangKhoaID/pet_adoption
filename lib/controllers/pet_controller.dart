@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:pet_adoption/service/auth_service.dart';
 
 class PetController extends GetxController {
   static PetController get instance => Get.find();

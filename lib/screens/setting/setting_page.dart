@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import 'package:pet_adoption/screens/setting/component/avatar_card.dart';
 import 'package:pet_adoption/screens/setting/component/setting_tile.dart';
 import 'package:pet_adoption/screens/setting/component/support_card.dart';
+import 'package:pet_adoption/service/auth_service.dart';
+import 'package:pet_adoption/storage/app_shared.dart';
 
 class SettingPage extends StatefulWidget {
   const SettingPage({super.key});
@@ -24,7 +27,10 @@ class _SettingPageState extends State<SettingPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const AvatarCard(),
+                AvatarCard(
+                  name: AppPreferences.instance.getFullName().toString(),
+                  email: AppPreferences.instance.getEmail().toString(),
+                ),
                 const SizedBox(height: 20),
                 const Divider(),
                 const SizedBox(height: 10),
@@ -35,7 +41,11 @@ class _SettingPageState extends State<SettingPage> {
                       icon: CupertinoIcons.person_fill,
                     ),
                     SettingTile(title: "Mục yêu thích", icon: Icons.favorite),
-                    SettingTile(title: "Đăng xuất", icon: Icons.logout),
+                    SettingTile(
+                      title: "Đăng xuất",
+                      icon: Icons.logout,
+                      onTap: () => AuthService().signOut(),
+                    ),
                   ],
                 ),
                 const SizedBox(height: 10),
